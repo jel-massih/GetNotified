@@ -1,0 +1,100 @@
+﻿<phone:PhoneApplicationPage
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:telerikInput="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Input"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:notifyControls="clr-namespace:GetNotified.NotifyControls"
+    x:Class="GetNotified.SettingsPage"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False">
+
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <phone:Panorama Title="Settings">
+            <phone:PanoramaItem Header="General">
+                <StackPanel Margin="0,-40,0,0">
+                    <telerikPrimitives:RadToggleSwitch Header="Use Current Location" 
+                                               x:Name="locationSwitch"
+                                               CheckedChanged="OnLocationCheckedChanged"
+                                               IsChecked="True"/>
+                    <StackPanel Grid.Row="1" 
+                        x:Name="locationPanel" 
+                        Height="Auto">
+                        <TextBlock Text="Location" Foreground="{StaticResource PhoneSubtleBrush}" Padding="12,0,0,0"/>
+                        <TextBox x:Name="locationText" TextChanged="locationText_TextChanged" Text="Boston, USA"/>
+                    </StackPanel>
+                    <telerikInput:RadListPicker Header="Unit System" Grid.Row="0" Width="Auto" x:Name="unitType"
+                                             SelectionChanged="unitType_SelectionChanged">
+                        <sys:String>Metric</sys:String>
+                        <sys:String>Imperial</sys:String>
+                    </telerikInput:RadListPicker>
+                    <telerikInput:RadListPicker x:Name="newsSourcePicker" Header="News Source" Grid.Row="0" SelectionChanged="newsSourcePicker_SelectionChanged">
+                        <sys:String>New York Times</sys:String>
+                        <sys:String>ESPN</sys:String>
+                        <sys:String>USA Today</sys:String>
+                    </telerikInput:RadListPicker>
+                    <telerikInput:RadListPicker Header="Weather Source" Grid.Row="0"  x:Name="weatherSource" SelectionChanged="weatherSource_SelectionChanged">
+                        <sys:String>World Weather Online</sys:String>
+                    </telerikInput:RadListPicker>
+                </StackPanel>
+            </phone:PanoramaItem>
+
+            <phone:PanoramaItem Header="Morning">
+                <ScrollViewer Margin="0,-50,0,0">
+                    <StackPanel VerticalAlignment="Top" >
+                        <telerikPrimitives:RadToggleSwitch x:Name="enableMorningNotification" Header="Enable Morning Notifications" IsChecked="True" CheckedChanged="enableMorningNotification_CheckedChanged" />
+                        <StackPanel Grid.Row="1" x:Name="morningNotificaionPanel" Height="Auto">
+                            <telerikPrimitives:RadTextBox x:Name="morningGreetingBox" Header="Greeting Message" TextChanged="morningGreetingBox_TextChanged" Text="Good Morning" Margin="0, -12, 0, 0"/>
+                            <telerikInput:RadTimePicker x:Name="morningAlertTime" Header="Alert Time" VerticalAlignment="Bottom" HorizontalAlignment="Left" Padding="0" Margin="0,-12,0,0" ValueChanged="morningAlertTime_ValueChanged"/>
+                            <telerikPrimitives:RadToggleSwitch x:Name="morningWeatherNotificationToggle" Header="Weather Notifications" IsChecked="True" CheckedChanged="morningWeatherNotificationToggle_CheckedChanged"/>
+                            <telerikPrimitives:RadToggleSwitch x:Name="morningNewsNotificationToggle" Header="News Notifications" IsChecked="True" CheckedChanged="morningNewsNotificationToggle_CheckedChanged"/>
+                            <StackPanel Grid.Row="1" x:Name="morningNewsPanel" Height="Auto" Margin="0, 0, 0, 40">
+                                <TextBlock Text="Spoken News Headline Count" Foreground="{StaticResource PhoneSubtleBrush}" Padding="12,0,0,0"/>
+                                <telerikInput:RadNumericUpDown x:Name="morningNewsHeadlineCount" MaxValue="15" Value="5" FontSize="32" FontFamily="Segoe WP SemiLight" ValueChanged="morningNewsHeadlineCount_ValueChanged" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </phone:PanoramaItem>
+
+            <phone:PanoramaItem Header="Evening">
+                <ScrollViewer Margin="0,-50,0,0">
+                    <StackPanel>
+                        <telerikPrimitives:RadToggleSwitch x:Name="enableEveningNotification" Header="Enable Evening Notifications" IsChecked="True" CheckedChanged="enableEveningNotification_CheckedChanged" />
+                        <StackPanel Grid.Row="1" x:Name="eveningNotificaionPanel" Height="Auto">
+                            <telerikPrimitives:RadTextBox x:Name="eveningGreetingBox" Header="Evening Message" TextChanged="eveningGreetingBox_TextChanged" Text="Good Evening"/>
+                            <telerikInput:RadTimePicker x:Name="eveningAlertTime" Header="Alert Time" VerticalAlignment="Bottom" HorizontalAlignment="Left" Padding="0" Margin="0,-12,0,0" ValueChanged="eveningAlertTime_ValueChanged"/>
+                            <telerikPrimitives:RadToggleSwitch x:Name="eveningWeatherNotificationToggle" Header="Weather Notifications" IsChecked="True" CheckedChanged="eveningWeatherNotificationToggle_CheckedChanged"/>
+                            <telerikPrimitives:RadToggleSwitch x:Name="eveningNewsNotificationToggle" Header="News Notifications" IsChecked="True" CheckedChanged="eveningNewsNotificationToggle_CheckedChanged"/>
+                            <StackPanel Grid.Row="1" x:Name="eveningNewsPanel" Height="Auto" Margin="0, 0, 0, 40">
+                                <TextBlock Text="Spoken News Headline Count" Foreground="{StaticResource PhoneSubtleBrush}" Padding="12,0,0,0"/>
+                                <telerikInput:RadNumericUpDown x:Name="eveningNewsHeadlineCount" MaxValue="15" Value="5" FontSize="32" FontFamily="Segoe WP SemiLight" ValueChanged="eveningNewsHeadlineCount_ValueChanged" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </phone:PanoramaItem>
+
+            <phone:PanoramaItem Header="Live Tile">
+                <StackPanel>
+                    <telerikPrimitives:RadToggleSwitch x:Name="tileDisplayTimeToggle" Header="Display Next Notification Time" IsChecked="True" CheckedChanged="tileDisplayTimeToggle_CheckedChanged"/>
+                </StackPanel>
+            </phone:PanoramaItem>
+        </phone:Panorama>
+
+        <notifyControls:MediumTileFront Grid.RowSpan="2" HorizontalAlignment="Left" x:Name="mediumFront" Margin="-2000,0,0,0" />
+        <notifyControls:SmallTileFront Grid.RowSpan="2" HorizontalAlignment="Left" x:Name="smallFront" Margin="-2000,0,0,0" VerticalAlignment="Center"/>
+    </Grid>
+
+</phone:PhoneApplicationPage>
